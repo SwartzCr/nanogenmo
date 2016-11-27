@@ -1,0 +1,255 @@
+The Business of Domain Names 
+
+Domaining is the business of buying selling developing and monetizing Internet domain names. Such domain name portfolios often include cleverly chosen and highly marketable generic domain names or domains whose registrations had lapsed yet still retain reasonable traffic. There is sometimes no actual intent to use any of the domain names with the exception of generating advertising revenue through domain parking. This guide is licensed under the GNU Free Documentation License. It uses material from the Wikipedia. 
+
+Domain name system 
+
+On the Internet the Domain Name System DNS associates various sorts of information with socalled domain names  most importantly it serves as the phone book for the Internet it translates human readable computer hostnames wikipedia into the IP addresses that networking equipment needs for delivering information. It also stores other information such as the list of mail exchange servers that accept email for a given domain. In providing a worldwide keywordbased redirection service the Domain Name System is an essential component of contemporary Internet use. 
+
+Uses 
+
+The most basic use of DNS is to translate hostnames to IP addresses. It is in very simple terms like a phone book. For example if you want to know the internet address of wikipedia the Domain Name System can be used to tell you it is 66230200100. DNS also has other important uses. Preeminently DNS makes it possible to assign Internet destinations to the human organization or concern they represent independently of the physical routing hierarchy represented by the numerical IP address. Because of this hyperlinks and Internet contact information can remain the same whatever the current IP routing arrangements may be and can take a humanreadable form such as wikipedia org which is rather easier to remember than an IP address such as 66230200100. People take advantage of this when they recite meaningful URLs and email addresses without caring how the machine will actually locate them. The Domain Name System distributes the responsibility for assigning domain names and mapping them to IP networks by allowing an authoritative server for each domain to keep track of its own changes avoiding the need for a central registrar to be continually consulted and updated. 
+
+History 
+
+The practice of using a name as a more humanlegible abstraction of a machines numerical address on the network predates even TCPIP and goes all the way to the ARPAnet era. Back then however a different system was used as DNS was only invented in 1983 shortly after TCPIP was deployed. With the older system each computer on the network retrieved a file called HOSTSTXT from a computer at SRI now SRI International. The HOSTSTXT file mapped numerical addresses to names. A hosts file still exists on most modern operating systems either by default or through configuration and allows users to specify an IP address eg. 192034166 to use for a hostname eg. example without checking DNS. As of 2006 the hosts file serves primarily for troubleshooting DNS errors or for mapping local addresses to more organic names. Systems based on a hosts file have inherent limitations because of the obvious requirement that every time a given computers address changed every computer that seeks to communicate with it would need an update to its hosts file. The growth of networking called for a more scalable system one that recorded a change in a hosts address in one place only. Other hosts would learn about the change dynamically through a notification system thus completing a globally accessible network of all hosts names and their associated IP Addresses. At the request of Jon Postel Paul Mockapetris invented the Domain Name System in 1983 and wrote the first implementation. The original specifications appear in RFC 882 and 883. In 1987 the publication of RFC 1034 and RFC 1035 updated the DNS specification and made RFC 882 and RFC 883 obsolete. Several morerecent RFCs have proposed various extensions to the core DNS protocols. In 1984 four Berkeley students Douglas Terry Mark Painter David Riggle and Songnian Zhou wrote the first UNIX implementation which was maintained by Ralph Campbell thereafter. In 1985 Kevin Dunlap of DEC significantly rewrote the DNS implementation and renamed it BIND Berkeley Internet Name Domain previously Berkeley Internet Name Daemon. Mike Karels Phil Almquist and Paul Vixie have maintained BIND since then. BIND was ported to the Windows NT platform in the early 1990s. Due to BINDs long history of security issues and exploits several alternative nameserver resolver programs have been written and distributed in recent years. 
+
+How DNS works in theory 
+
+it doesnt
+
+Domain Name Space 
+
+Domain names arranged in a tree cut into zones each served by a nameserver. The domain name space consists of a tree of domain names. Each node or leaf in the tree has one or more resource records which hold information associated with the domain name. The tree subdivides into zones. A zone consists of a collection of connected nodes authoritatively served by an authoritative DNS nameserver. Note that a single nameserver can host several zones. When a system administrator wants to let another administrator control a part of the domain name space within his or her zone of authority he or she can delegate control to the other administrator. This splits a part of the old zone off into a new zone which comes under the authority of the second administrators nameservers. The old zone becomes no longer authoritative for what goes under the authority of the new zone. A resolver looks up the information associated with nodes. A resolver knows how to communicate with name servers by sending DNS requests and heeding DNS responses. Resolving usually entails iterating through several name servers to find the needed information. Some resolvers function simplistically and can only communicate with a single name server. These simple resolvers rely on a recursing name server to perform the work of finding information for them. 
+
+Parts of a domain name 
+
+A domain name usually consists of two or more parts technically labels  separated by dots. For The rightmost label conveys the toplevel domain for example the address wikipedia org has the toplevel domain org. Each label to the left specifies a subdivision or subdomain of the domain above it. Note that subdomain expresses relative dependence not absolute dependence for example wikipedia org comprises a subdomain of the org domain and en wikipedia org comprises a subdomain of the domain wikipedia org. In theory this subdivision can go down to 127 levels deep and each label can contain up to 63 characters as long as the whole domain name does not exceed a total length of 255 characters. But in practice some domain registries have shorter limits than that. A hostname refers to a domain name that has one or more associated IP addresses. For example the en wikipedia org and wikipedia org domains are both hostnames but the org domain is not. The Domain Name System consists of a hierarchical set of DNS servers. Each domain or subdomain has one or more authoritative DNS servers that publish information about that domain and the name servers of any domains beneath it. The hierarchy of authoritative DNS servers matches the hierarchy of domains. At the top of the hierarchy stand the root nameservers the servers to query when looking up resolving a toplevel domain name TLD. 
+
+Iterative and recursive queries: 
+
+An Iterative query is one where the DNS server may provide a partial answer to the query or give an error. DNS servers must support nonrecursive queries. A recursive query is one where the DNS server will fully answer the query or give an error. DNS servers are not required to support recursive queries and both the resolver or another DNS acting recursively on behalf of another resolver negotiate use of recursive service using bits in the query headers. Address resolution mechanism This description deliberately uses the fictional .example TLD in accordance with the DNS guidelines themselves. In theory a full host name may have several name segments. inadomain. example. In practice in the experience of the majority of public users of Internet services full host names will frequently consist of just three segments. example and most often www. inadomain. example. For querying purposes software interprets the name segment by segment from right to left using an iterative search procedure. At each step along the way the program queries a corresponding DNS server to provide a pointer to the next server which it should consult. A DNS recursor consults three nameservers to resolve the address www wikipedia org. As originally envisaged the process was as simple as the local system is preconfigured with the known addresses of the root servers in a file of root hints which need to be updated periodically by the local administrator from a reliable source to be kept up to date with the changes which occur over time. query one of the root servers to find the server authoritative for the next level down so in the case of our simple hostname a root server would be asked for the address of a server with detailed knowledge of the example top level domain. querying this second server for the address of a DNS server with detailed knowledge of the secondlevel domain  inadomain. example in our example. repeating the previous step to progress down the name until the final step which would rather than generating the address of the next DNS server return the final address sought. The diagram illustrates this process for the real host wikipedia. The mechanism in this simple form has a difficulty it places a huge operating burden on the root servers with each and every search for an address starting by querying one of them. Being as critical as they are to the overall function of the system such heavy use would create an insurmountable bottleneck for trillions of queries placed every day. The section DNS in practice describes how this is addressed. 
+
+Circular dependencies and glue records 
+
+Name servers in delegations appear listed by name rather than by IP address. This means that a resolving name server must issue another DNS request to find out the IP address of the server to which it has been referred. Since this can introduce a circular dependency if the nameserver referred to is under the domain that it is authoritative of it is occasionally necessary for the nameserver providing the delegation to also provide the IP address of the next nameserver. This record is called a glue record. For example assume that the subdomain wikipedia contains further subdomains such as something en wikipedia org and that the authoritative nameserver for these lives at nsl en wikipedia org. A computer trying to resolve something en wikipedia org will thus first have to resolve nsl en wikipedia org. Since nsl is also under the en wikipedia org subdomain resolving nsl en wikipedia org requires resolving nsl en wikipedia org which is exactly the circular dependency mentioned above. The dependency is broken by the glue record in the nameserver of wikipedia org that provides the IP address of nsl en wikipedia org directly to the requestor enabling it to bootstrap the process by figuring out where nsl en wikipedia org is located. 
+
+In practice 
+
+When an application such as a web browser tries to find the IP address of a domain name it doesnt necessarily follow all of the steps outlined in the Theory section above. We will first look at the concept of caching and then outline the operation of DNS in the real world. Caching and time to live Because of the huge volume of requests generated by a system like DNS the designers wished to provide a mechanism to reduce the load on individual DNS servers. To this end the DNS resolution process allows for caching  the local recording and subsequent consultation of the results of a DNS query for a given period of time after a successful answer. How long a resolver caches a DNS response how long a DNS response remains valid is determined by a value called the time to live TTL. The TTL is set by the administrator of the DNS server handing out the response. The period of validity may vary from just seconds to days or even weeks. 
+
+Caching time 
+
+As a noteworthy consequence of this distributed and caching architecture changes to DNS do not always take effect immediately and globally. This is best explained with an example If an administrator has set a TTL of 6 hours for the host www wikipedia org and then changes the IP address to which www wikipedia org resolves at 1201pm the administrator must consider that a person who cached a response with the old IP address at 1200pm will not consult the DNS server again until 600pm. The period between 1201pm and 600pm in this example is called caching time which is best defined as a period of time that begins when you make a change to a DNS record and ends after the maximum amount of time specified by the TTL expires. This essentially leads to an important logistical consideration when making changes to DNS not everyone is necessarily seeing the same thing youre seeing. RFC 1537 helps to convey basic rules for how to set the TTL. Note that the term propagation although very widely used in this context does not describe the effects of caching well. Specifically it implies that when you make a DNS change it somehow spreads to all other DNS servers instead other DNS servers check in with yours as needed and that you do not have control over the amount of time the record is cached you control the TTL values for all DNS records in your domain except your NS records and any authoritative DNS servers that use your domain name. Some resolvers may override TTL values as the protocol supports caching for up to 68 years or no caching at all. Negative caching the nonexistence of records is determined by name servers authoritative for a zone which MUST include the SOA record when reporting no data of the requested type exists. The MINIMUM field of the SOA record and the TTL of the SOA itself is used to establish the TTL for the negative answer. RFC 2308 Many people incorrectly refer to a mysterious 48 hour or 72 hour propagation time when you make a DNS change. When one changes the NS records for ones domain or the IP addresses for hostnames of authoritative DNS servers using ones domain if any there can be a lengthy period of time before all DNS servers use the new information. This is because those records are handled by the zone parent DNS servers for example the com DNS servers if your domain is example which typically cache those records for 48 hours. However those DNS changes will be immediately available for any DNS servers that do not have them cached. And any DNS changes on your domain other than the NS records and authoritative DNS server names can be nearly instantaneous if you choose for them to be by lowering the TTL once or twice ahead of time and waiting until the old TTL expires before making the change. 
+
+In the real world 
+
+DNS resolving from program to OSresolver to ISPresolver to greater system. Users generally do not communicate directly with a DNS resolver. Instead DNS resolution takes place transparently in client applications such as web browsers mail clients and other Internet applications. When a request is made which necessitates a DNS lookup such programs send a resolution request to the local DNS resolver in the operating system which in turn handles the communications required. The DNS resolver will almost invariably have a cache see above containing recent lookups. If the cache can provide the answer to the request the resolver will return the value in the cache to the program that made the request. If the cache does not contain the answer the resolver will send the request to a designated DNS server or servers. In the case of most home users the Internet service provider to which the machine connects will usually supply this DNS server such a user will either have configured that servers address manually or allowed DHCP to set it however where systems administrators have configured systems to use their own DNS servers their DNS resolvers point to separately maintained nameservers of the organization. In any event the name server thus queried will follow the process outlined above  until it either successfully finds a result or does not. It then returns its results to the DNS resolver assuming it has found a result the resolver duly caches that result for future use and hands the result back to the software which initiated the request. 
+
+Broken resolvers 
+
+An additional level of complexity emerges when resolvers violate the rules of the DNS protocol. Some people have suggested that a number of large ISPs have configured their DNS servers to violate rules presumably to allow them to run on lessexpensive hardware than a fully compliant resolver such as by disobeying TTLs or by indicating that a domain name does not exist just because one of its name servers does not respond. As a final level of complexity some applications such as Web browsers also have their own DNS cache in order to reduce the use of the DNS resolver library itself. This practice can add extra difficulty to DNS debugging as it obscures which data is fresh or lies in which cache. These caches typically have very short caching times of the order of one minute. A notable exception is Internet Explorer recent versions cache DNS records for half an hour. 
+
+Other applications 
+
+The system outlined above provides a somewhat simplified scenario. The Domain Name System includes several other functions Hostnames and IP addresses do not necessarily match on a onetoone basis. Many hostnames may correspond to a single IP address combined with virtual hosting this allows a single machine to serve many web sites. Alternatively a single hostname may correspond to many IP addresses this can facilitate fault tolerance and load distribution and also allows a site to move physical location seamlessly. There are many uses of DNS besides translating names to IP addresses. For instance Mail transfer agents use DNS to find out where to deliver email for a particular address. The domain to mail exchanger mapping provided by MX records accommodates another layer of fault tolerance and load distribution on top of the name to IP address mapping. Sender Policy Framework and DomainKeys instead of creating their own record types were designed to take advantage of another DNS record type the TXT record. To provide resilience in the event of computer failure multiple DNS servers are usually provided for coverage of each domain and at the top level thirteen very powerful root servers exist with additional copies of several of them distributed worldwide via Anycast. DNS primarily uses UDP on port 53 to serve requests. Almost all DNS queries consist of a single UDP request from the client followed by a single UDP reply from the server. TCP comes into play only when the response data size exceeds 512 bytes or for such tasks as zone transfer. Some operating systems such as HPUX are known to have resolver implementations that use TCP for all queries even when UDP would suffice. 
+
+Extensions to DNS 
+
+EDNS is an extension of the DNS protocol which enhances the transport of DNS data in UDP packages and adds support for expanding the space of request and response codes. It is described in RFC 267 1. 
+
+Types of DNS records 
+
+Important categories of data stored in DNS include the following An A record or address record maps a hostname to a 32bit IPv4 address. An AAAA record or IPv6 address record maps a hostname to a 128bit IPv6 address. A CNAME record or canonical name record is an alias of one name to another. The A record to which the alias points can be either local or remote  on a foreign name server. This is useful when running multiple services like an FTP and a Webserver from a single IP address. Each service can then have its own entry in DNS like ftp example com and www example com. An MX record or mail exchange record maps a domain name to a list of mail exchange servers for that domain. A PTR record or pointer record maps an IPv4 address to the canonical name for that host. Setting up a PTR record for a hostname in the inaddr arpa domain that corresponds to an IP address implements reverse DNS lookup for that address. For example at the time of writing www icann net has the IP address 192034164 but a PTR record maps 164340192. inaddr. arpa to its canonical name referrals icann org. An NS record or name server record maps a domain name to a list of DNS servers authoritative for that domain. Delegations depend on NS records. An SO A record or start of authority record specifies the DNS server providing authoritative information about an Internet domain the email of the domain administrator the domain serial number and several timers relating to refreshing the zone. An SRV record is a generalized service location record. A TXT record allows an administrator to insert arbitrary text into a DNS record. For example this record is used to implement the Sender Policy Framework and DomainKeys specifications. NAPTR records Naming Authority Pointer are a newer type of DNS record that support regular expression based rewriting. Other types of records simply provide information for example a LOC record gives the physical location of a host or experimental data for example a WKS record gives a list of servers offering some well known service such as HTTP or POP3 for a domain. When sent over the internet all records use the common format specified in RFC 1035 shown below. 
+
+Internationalized domain names 
+
+While domain names technically have no restrictions on the characters they use and can include non ASCII characters the same is not true for host names. Host names are the names most people see and use for things like email and web browsing. Host names are restricted to a small subset of the ASCII character set that includes the Roman alphabet in upper and lower case the digits 0 through 9 the dot and the hyphen. See RFC 3696 section 2 for details. This prevented the representation of names and words of many languages natively. ICANN has approved the Punycodebased IDNA system which maps Unicode strings into the valid DNS character set as a workaround to this issue. Some registries have adopted IDNA. 
+
+Security issues 
+
+DNS was not originally designed with security in mind and thus has a number of security issues. DNS responses are traditionally not cryptographically signed leading to many attack possibilities DNSSEC modifies DNS to add support for cryptographically signed responses. There are various extensions to support securing zone transfer information as well. Even with encryption it still doesnt prevent the possibility that a DNS server could become infected with a virus or for that matter a disgruntled employee that would cause IP addresses of that server to be redirected to a malicious address with a long TTL. This could have far reaching impact to potentially millions of internet users if busy DNS servers cache the bad IP data. This would require manual purging of all affected DNS caches as required by the long TTL up to 68 years. Some domain names can spoof other similarlooking domain names. For example paypal and paypal are different names yet users may be unable to tell the difference when the users typeface font does not clearly differentiate the letter 1 and the number 1. This problem is much more serious in systems that support internationalized domain names since many characters that are different from the point of view of ISO 10646 appear identical on typical computer screens. 
+
+Registrant 
+
+Most of the NICs in the world receive an annual fee from a legal user in order for the legal user to utilize the domain name a sort of a leasing agreement exists subject to the registrys terms and conditions. Depending on the various naming convention of the registries legal users become commonly known as registrants or as domain holders. ICANN holds a complete list of domain registries in the world. One can find the legal user of a domain name by looking in the WHOIS database held by most domain registries. For most of the more than 240 country code toplevel domains ccTLDs the domain registries hold the authoritative WHOIS Registrant name servers expiry dates etc.. For instance DENIC Germany NIC holds the authoritative WHOIS to a .DE domain name. However some domain registries such as for .COM .ORG .INFO etc. use a registryregistrar model. There are hundreds of Domain Name Registrars that actually perform the domain name registration with the end user see lists at ICANN or VeriSign. By using this method of distribution the registry only has to manage the relationship with the registrar and the registrar maintains the relationship with the end users or registrants. For .COM .NET domain names the domain registries VeriSign holds a basic WHOIS registrar and name servers etc.. One can find the detailed WHOIS registrant name servers expiry dates etc. at the registrars. Since about 2001 most gTLD registries .ORG .BIZ .INFO have adopted a socalled thick registry approach keeping the authoritative WHOIS with the various registries instead of the registrars. 
+
+Administrative contact 
+
+A registrant usually designates an administrative contact to manage the domain name. In practice the administrative contact usually has the most immediate power over a domain. Management functions delegated to the administrative contacts may include for example the obligation to conform to the requirements of the domain registry in order to retain the right to use a domain name authorization to update the physical address email address and telephone number etc. in WHOIS 
+
+Politics 
+
+Many investigators have voiced criticism of the methods currently used to control ownership of domains. Critics commonly claim abuse by monopolies or nearmonopolies such as VeriSign Inc. Particularly noteworthy was the VeriSign Site Finder system which redirected all unregistered com and net domains to a VeriSign webpage. Despite widespread criticism VeriSign only reluctantly removed it after the Internet Corporation for Assigned Names and Numbers ICANN threatened to revoke its contract to administer the root name servers. There is also significant disquiet regarding the United States political influence over ICANN. This was a significant issue in the attempt to create a .xxx toplevel domain and sparked greater interest in alternative DNS roots that would be beyond the control of any single country. 
+
+Truth in Domain Names Act 
+
+In the United States the Truth in Domain Names Act actually the Anticybersquatting Consumer Protection Act in combination with the PROTECT Act forbids the use of a misleading domain name with the intention of attracting people into viewing a visual depiction of sexually explicit conduct on the Internet. 
+
+Domaining 
+
+Domaining is the business of buying selling developing and monetizing Internet domain names. Such domain name portfolios often include cleverly chosen and highly marketable generic domain names or domains whose registrations had lapsed yet still retain reasonable traffic. There is sometimes no actual intent to use any of the domain names with the exception of generating advertising revenue through domain parking. Domain names are the addresses of the web and come in a wide variety of extensions com being the most popular. 
+
+Domainers 
+
+Domainers are individuals whose profession is the accumulation and dealing of generic internet domain names. Although controversially compared to cybersquatters and ticket scalpers Domainers claim to differentiate and legitimize themselves by avoiding trademarked names and potentially contentious domain names and refraining from typosquatting. They consider their conduct in buying selling and developing domain names to be in the same spirit as real estate investing. Domainers generate revenue via domain parking  through the resale of domain names and by developing domain names into fully functioning websites. Domainers are also sometimes referred to as domain investors and commercial registrants. As of December 2006 there are an estimated 8000 to 10000 individuals globally who make buying and selling domain names a part of their business. USA Today reported that many Domainers prefer to remain anonymous due to the competitive and controversial nature of their business. A report in USA Today states that known sales of 5851 domain names generated $29 million in 2005 compared with known sales of 3813 names for $15 million in 2004. Like the tip of an iceberg the number of reported sales is estimated to be 510% of the broader secondary domain resale market. 
+
+T.R.A.F.F.I.C. Conference 
+
+This guide is licensed under the GNU Free Documentation License. It uses material from the Wikipedia. A website alternatively Web site or web site is a collection of Web pages images videos and other digital assets that is hosted on one or several Web servers usually accessible via the Internet cell phone or a LAN. A Web page is a document typically written in HTML that is almost always accessible via HTTP a protocol that transfers information from the Web server to display in the users Web browser. All publicly accessible websites are seen collectively as constituting the World Wide Web. The pages of websites can usually be accessed from a common root URL called the homepage and usually reside on the same physical server. The URLs of the pages organize them into a hierarchy although the hyperlinks between them control how the reader perceives the overall structure and how the traffic flows between the different parts of the sites. Some websites require a subscription to access some or all of their content. Examples of subscription sites include many business sites parts of many news sites academic journal sites gaming sites message boards Webbased email services social networking website and sites providing realtime stock market data. As of March 2007 there are over 8 billion web pages in total on the World Wide Web.  Source google 
+
+History 
+
+The first online website appeared in 1991. On 30 April 1993 CERN announced that the World Wide Web would be free to anyone. A copy of the original first Web page created by Tim BernersLee is kept here. 
+
+Organized by function a website may be 
+
+a personal website. a business website. a government website. a nongovernment website. a nonprofit organization website or blog. It could be the work of an individual a business or other organization and is typically dedicated to some particular topic or purpose. Any website can contain a hyperlink to any other website so the distinction between individual sites as perceived by the user may sometimes be blurred. Websites are written in or dynamically converted to HTML Hyper Text Markup Language and are accessed using a software program called a Web browser also known as a HTTP client. Web pages can be viewed or otherwise accessed from a range of computerbased and Internetenabled devices of various sizes including desktop computers laptop computers PDAs and cell phones. A website is hosted on a computer system known as a web server also called an HTTP server and these terms can also refer to the software that runs on these system and that retrieves and delivers the Web pages in response to requests from the website users. Apache is the most commonly used Web server software according to Netcraft statistics and Microsofts Internet Information Server IIS is also commonly used. A static website is one that has web pages stored on the server in the same form as the user will view them. They are edited using three broad categories of software Text editors such as Notepad or TextEdit where the HTML is manipulated directly within the editor program WYSIWYG editors such as Microsoft FrontPage and Macromedia Dreamweaver where the site is edited using a GUI interface and the underlying HTML is generated automatically by the editor software Templatebased editors such as Rapidweaver and iWeb which allow users to quickly create and upload websites to a web server without having to know anything about HTML as they just pick a suitable template from a palette and add pictures and text to it in a DTPlike fashion without ever having to see any HTML code. A dynamic website is one that has frequently changing information or collates information on the hop each time a page is requested. For example it would call various bits of information from a database and put them together in a predefined format to present the reader with a coherent page. It interacts with users in a variety of ways including by reading cookies recognizing users previous history session variables server side variables etc. or by using direct interaction form elements mouseovers etc.. A site can display the current state of a dialogue between users monitor a changing situation or provide information in some way personalized to the requirements of the individual user. There is a wide range of software systems such as Java Server Pages JSP the PHP and Perl programming languages Active Server Pages ASP and ColdFusion CFM that are available to generate dynamic Web systems and dynamic sites. Sites may also include content that is retrieved from one or more databases or by using XMLbased technologies such as RSS. Static content may also be dynamically generated either periodically or if certain conditions for regeneration occur cached in order to avoid the performance loss of initiating the dynamic engine on a peruser or perconnection basis. Plugins are available to expand the features and abilities of Web browsers which use them to show active content such as Flash Shockwave or applets written in Java. Dynamic HTML also provides for user interactivity and realtime element updating within Web pages pages dont have to be loaded or reloaded to effect any changes mainly using the DOM and JavaScript support which is builtin to most modern Web browsers. 
+
+Websites as businesses 
+
+Turning a website into an income source is a common practice for webdevelopers and website owners. There are several methods for creating a website business which fall into two broad categories. 
+
+Online Information Businesses 
+
+Some websites offer no products at all but provide free information with income coming from clicks the visitors make on advertisements see contextual ads. There is a wide range of monetizing used on such sites and the sites themselves are actively traded and bought and sold as going concerns. Guides have been published which explain how to create such a business. See links at bottom of page. 
+
+Online Shop Businesses 
+
+While most business websites serve as a shop window for brick and mortar businesses it is increasingly the case that some websites are businesses in their own right. These websites are fully selfcontained businesses entities offering for example immediate downloads of retail software on payment of the products price via their shopping cart. Guides have been published which explain how to create such a business. See links at bottom of page. 
+
+Online Services Businesses 
+
+It offers a lot of services in every field such as tourism economic politic social welfare. 
+
+Spelling 
+
+As noted above there are several different spellings for this term. Although website and web site are commonly used the former especially in British English the Associated Press Stylebook Reuters Microsoft academia book publishing The Chicago Manual of Style and dictionaries such as Merriam Webster use the twoword initially capitalized spelling Web site. This is because Web is not a general term but a shortened form of World Wide Web. As with many newly created terms it may take some time before a common spelling is finalized. This controversy also applies to derivative terms such as Web masterVwebmaster and Web camVwebcam. The Canadian Oxford Dictionary and the Canadian Press Stylebook list website and web page as the preferred spellings. The Oxford English Dictionary began using website as its standardized form in 2004. m Bill Walsh the copy chief of The Washington Posts national desk and one of American English’s foremost grammarians argues for the twoword spelling with capital W in his books Lapsing into a Comma and The Elephants of Style and on his site the Slot. Way to Upload website and earn on click basis Here are some guidelines to make a website for earning pupose. 
+
+Types of websites 
+
+There are many varieties of Web sites each specializing in a particular type of content or use and they may be arbitrarily classified in any number of ways. A few such classifications might include 
+
+Affiliate:
+
+enabled portal that renders not only its custom CMS but also syndicated content from other content providers for an agreed fee. There are usually three relationship tiers. Affiliate Agencies  Commission Junction Advertisers  Ebay and consumer  Yahoo. 
+
+Archive site:
+
+used to preserve valuable electronic content threatened with extinction. Two examples are: Internet Archive which since 1996 has preserved billions of old and new Web pages; and Google Groups which in early 2005 was archiving over 845000000 messages posted to Usenet news discussion groups. 
+
+Blog or web log site:
+
+sites generally used to post online diaries which may include discussion forums  blogger Xanga. 
+
+Corporate website:
+
+used to provide background information about a business organization or service. 
+
+Commerce site or eCommerce site:
+
+for purchasing goods such as Amazon. 
+
+Community site:
+
+a site where persons with similar interests communicate with each other usually by chat or message boards such as MySpace. 
+
+Database site:
+
+a site whose main use is the search and display of a specific databases content such as the Internet Movie Database or the Political Graveyard. Development site: a site whose purpose is to provide information and resources related to software development Web design and the like. 
+
+Directory site:
+
+a site that contains varied contents which are divided into categories and subcategories such as Yahoo! directory Google directory and Open Directory Project. 
+
+Download site:
+
+strictly used for downloading electronic content such as software game demos or computer wallpaper. 
+
+Employment site:
+
+allows employers to post job requirements for a position or positions and prospective employees to fill an application. 
+
+Erotica websites:
+
+shows sexual videos and images. 
+
+Game site:
+
+a site that is itself a game or playground where many people come to play such as MSN Games  Pogo and Newgrounds. Geodomain refers to domain names that are the same as those of geographic entities such as cities and countries. For example Richmond is the geodomain for Richmond Virginia. 
+
+Gripe site:
+
+a site devoted to the critique of a person place corporation government or institution. 
+
+Humor site:
+
+satirizes parodies or otherwise exists solely to amuse. 
+
+Information site:
+
+contains content that is intended to inform visitors but not necessarily for commercial purposes such as RateMyProfessors Free Internet Lexicon and Encyclopedia. Most government educational and nonprofit institutions have an informational site. 
+
+Java applet site:
+
+contains software to run over the Web as a Web application. 
+
+Mirror computing site:
+
+A complete reproduction of a website. 
+
+News site:
+
+similar to an information site but dedicated to dispensing news and commentary. 
+
+Personal homepage:
+
+run by an individual or a small group such as a family that contains information or any content that the individual wishes to include. 
+
+Phish site:
+
+a website created to fraudulently acquire sensitive information such as passwords and credit card details by masquerading as a trustworthy person or business such as Social Security Administration PayPal in an electronic communication see Phishing. 
+
+Political site:
+
+A site on which people may voice political views. 
+
+Pornography porn site:
+
+a site that shows pornographic images and videos. 
+
+Rating site:
+
+A site on which people can praise or disparage what is featured  ratemyrack com. 
+
+Review site:
+
+A site on which people can post reviews for products or services. 
+
+Search engine site:
+
+a site that provides general information and is intended as a gateway or lookup for other sites. A pure example is Google and the most widely known extended type is Yahoo!. 
+
+Shock site:
+
+includes images or other material that is intended to be offensive to most viewers rotten. 
+
+Warez:
+
+a site filled with illegal downloads. 
+
+Web portal:
+
+a site that provides a starting point or a gateway to other resources on the Internet or an intranet. 
+
+Wiki site:
+
+a site which users collaboratively edit such as Wikipedia. 
+
+Websites
+
+Some websites may be included in one or more of these categories. For example a business website may promote the businesss products but may also host informative documents such as white papers. There are also numerous subcategories to the ones listed above. For example a porn site is a specific type of eCommerce site or business site that is it is trying to sell memberships for access to its site. A fan site may be a dedication from the owner to a particular celebrity. Websites are constrained by architectural limits  the computing power dedicated to the website. Very large websites such as Yahoo! Microsoft and Google employ many servers and load balancing equipment such as Cisco Content Services Switches to distribute visitor loads over multiple computers at multiple locations. In January of 2007 Netcraft an Internet monitoring company that has tracked Web growth since 1995 reported that there were 106875138 Web sites with domain names and content on them in 2007 compared to just 18000 Web sites in August 1995. 
+
+Prizes 
+
+The Webby Awards are a set of awards presented to the worlds best websites a concept pioneered by Best of the Web in 1994. 
